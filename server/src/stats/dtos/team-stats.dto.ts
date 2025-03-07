@@ -1,5 +1,3 @@
-// src/stats/dtos/team-stats.dto.ts
-
 import { ObjectType, Field, Float, Int, ID } from '@nestjs/graphql';
 
 @ObjectType()
@@ -22,13 +20,13 @@ export class TeamStatsDTO {
   @Field(() => Date)
   date: Date;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: false })
   offensiveRating: number;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: false })
   defensiveRating: number;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: false })
   threePointPercentage: number;
 
   @Field(() => Float, { nullable: true })

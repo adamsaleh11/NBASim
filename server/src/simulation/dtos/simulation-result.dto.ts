@@ -1,21 +1,31 @@
-// src/simulation/dtos/simulation-result.dto.ts
+import { ObjectType, Field, InputType } from '@nestjs/graphql'; // InputType import is not needed here, removing
+import { WeightingInput } from './simulation-input.dto'; // Correct relative path to WeightingInput - important!
 
-import { ObjectType, Field, Float, Int } from '@nestjs/graphql';
-import { WeightingInput } from './simulation-input.dto';
+@ObjectType()
+export class GameResult {
+  @Field()
+  gameNumber: number;
+
+  @Field()
+  winner: string;
+
+  @Field({ nullable: true })
+  homeTeam?: boolean;
+}
 
 @ObjectType()
 export class TeamSimulationResult {
   @Field()
   name: string;
 
-  @Field(() => Float)
+  @Field()
   weightedRating: number;
 
-  @Field(() => Int)
-  wins: number;
+  @Field({ nullable: true })
+  wins?: number;
 
-  @Field(() => Int)
-  losses: number;
+  @Field({ nullable: true })
+  losses?: number;
 }
 
 @ObjectType()
@@ -29,16 +39,19 @@ export class SeriesResult {
   @Field(() => TeamSimulationResult)
   winner: TeamSimulationResult;
 
-  @Field(() => Int)
+  @Field()
   team1Wins: number;
 
-  @Field(() => Int)
+  @Field()
   team2Wins: number;
+
+  @Field(() => [GameResult])
+  games: GameResult[];
 }
 
 @ObjectType()
 export class RoundResult {
-  @Field(() => Int)
+  @Field()
   round: number;
 
   @Field(() => [SeriesResult])
@@ -71,9 +84,11 @@ export class SimulationResult {
   @Field(() => [ConferenceResult])
   conferences: ConferenceResult[];
 
-  @Field(() => TeamSimulationResult)
-  champion: TeamSimulationResult;
+  @Field(() => TeamSimulationResult, { nullable: true })
+  champion?: TeamSimulationResult;
 
-  @Field(() => WeightingInput)
+  @Field(() => WeightingInput) // Correct relative import path to WeightingInput!
   weighting: WeightingInput;
 }
+
+export { WeightingInput };

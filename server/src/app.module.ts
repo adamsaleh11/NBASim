@@ -15,7 +15,7 @@ import { DataSourceModule } from './data-source/data-source.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI') || 'mongodb://localhost/nba-simulator',
+        uri: configService.get<string>('MONGODB_URI') || 'mongodb://localhost:27017/nba-simulator',
       }),
       inject: [ConfigService],
     }),

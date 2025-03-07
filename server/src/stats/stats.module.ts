@@ -1,5 +1,3 @@
-// src/stats/stats.module.ts
-
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TeamStats, TeamStatsSchema } from './schemas/team-stats.schema';
@@ -13,6 +11,6 @@ import { DataSourceModule } from '../data-source/data-source.module';
     DataSourceModule,
   ],
   providers: [StatsService, StatsResolver],
-  exports: [StatsService],
+  exports: [StatsService, StatsResolver],
 })
 export class StatsModule {}
